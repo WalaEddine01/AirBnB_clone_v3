@@ -5,6 +5,8 @@ Web server
 from api.v1.views import app_views
 from flask import Flask, jsonify, make_response
 from os import getenv
+from models import storage
+
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
@@ -20,4 +22,4 @@ def not_found(error):
 
 if __name__ == "__main__":
     # python -m api.v1.app
-    app.run(host=HOST, port=API)
+    app.run(host=HOST, port=API, threaded=True)
