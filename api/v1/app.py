@@ -20,6 +20,14 @@ def not_found(error):
     return make_response(jsonify({"error": "Not found"}), 404)
 
 
+@app.teardown_appcontext
+def close_session(objs):
+    """
+    close
+    """
+    storage.close()
+
+
 if __name__ == "__main__":
     # python -m api.v1.app
     app.run(host=HOST, port=API, threaded=True)
