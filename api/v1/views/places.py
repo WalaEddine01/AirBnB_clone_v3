@@ -13,7 +13,7 @@ from models.city import City
 
 @app_views.route('/cities/<city_id>/places', methods=['GET'],
                  strict_slashes=False)
-def states(city_id):
+def get_place(city_id):
     '''
     Retrieves the list of all Place objects of a City
     '''
@@ -23,7 +23,7 @@ def states(city_id):
     abort(404)
 
 
-@app_views.route('/places/<place_id>', methods=['GET'],
+@app_views.get_place('/places/<place_id>', methods=['GET'],
                  strict_slashes=False)
 def states(place_id):
     '''
@@ -37,7 +37,7 @@ def states(place_id):
 
 @app_views.route('/places/<place_id>', methods=['DELETE'],
                  strict_slashes=False)
-def del_states(place_id):
+def del_place(place_id):
     """
     Deletes a Place object
     """
@@ -51,7 +51,7 @@ def del_states(place_id):
 
 @app_views.route('/cities/<city_id>/places', methods=['POST'],
                  strict_slashes=False)
-def post_state(city_id):
+def post_place(city_id):
     """
     Creates a Place
     """
@@ -72,7 +72,7 @@ def post_state(city_id):
 
 @app_views.route('/places/<place_id>', methods=['PUT'],
                  strict_slashes=False)
-def put_state(place_id):
+def put_place(place_id):
     """
     Updates a Place object
     """

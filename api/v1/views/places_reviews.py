@@ -1,28 +1,25 @@
 #!/usr/bin/python3
 """
-States view
+place review view
 """
 from api.v1.views import app_views
 from flask import abort, jsonify, request
 from models import storage
 from models.state import State
+from models.review import Review
+from models.place import Place
 
 
-@app_views.route('/states', methods=['GET'], strict_slashes=False)
-@app_views.route('/states/<state_id>', methods=['GET'],
+@app_views.route('/places/<place_id>/reviews', methods=['GET'],
                  strict_slashes=False)
-def states(state_id=None):
+def get_review(place_id):
     '''
-    Retrieves the list of all State objects
+    Retrieves the list of all Review objects of a Place
     '''
-    if not state_id:
-        return jsonify([state.to_dict() for state in
-                        storage.all(State).values()])
-    res = storage.get(State, state_id)
+    res = storage.get(Place, place_id)
     if res is not None:
-        return jsonify(res.to_dict())
+        return jsonify(r.to_dict() for r in res.reviews)
     abort(404)
-
 
 @app_views.route('/states/<string:state_id>', methods=['DELETE'],
                  strict_slashes=False)
