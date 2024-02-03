@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-wala eddine
+Users view
 """
 from api.v1.views import app_views
 from flask import abort, jsonify, request
@@ -12,9 +12,9 @@ from models.user import User
 @app_views.route('/users/<user_id>', methods=['GET'],
                  strict_slashes=False)
 def get_users(user_id=None):
-    '''
+    """
     Retrieves the list of all users objects
-    '''
+    """
     if not user_id:
         return jsonify([user.to_dict() for user in
                         storage.all(User).values()])
