@@ -26,7 +26,7 @@ def get_amenity(amenity_id=None):
     abort(404)
 
 
-@app_views.route('amenity_id/amenities/<amenity_id>', methods=['DELETE'],
+@app_views.route('/amenities/<amenity_id>', methods=['DELETE'],
                  strict_slashes=False)
 def del_amenity(amenity_id):
     """
