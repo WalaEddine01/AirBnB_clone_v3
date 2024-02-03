@@ -1,68 +1,73 @@
 #!/usr/bin/python3
 """
-States view
+Users view
 """
 from flask import jsonify
 from api.v1.views import app_views
 from models import storage
 from models.state import State
+from models.user import User
 from flask import request, abort
 
 
-@app_views.route('/states', methods=['GET'], strict_slashes=False)
-@app_views.route('/states/<state_id>', methods=['GET'],
+@app_views.route('/users', methods=['GET'], strict_slashes=False)
+@app_views.route('/users/<user_id>', methods=['GET'],
                  strict_slashes=False)
-def states(state_id=None):
+def get_users(user_id=None):
     '''
-    Retrieves the list of all State objects
+    Retrieves the list of all users objects
     '''
-    if not state_id:
-        return jsonify([state.to_dict() for state in
-                        storage.all(State).values()])
-    res = storage.get(State, state_id)
+    if not user_id:
+        return jsonify([user.to_dict() for user in
+                        storage.all(User).values()])
+    res = storage.get(User, user_id)
     if res is not None:
         return jsonify(res.to_dict())
     abort(404)
 
 
-@app_views.route('/states/<string:state_id>', methods=['DELETE'],
+@app_views.route('/users/<user_id>', methods=['DELETE'],
                  strict_slashes=False)
-def del_states(state_id):
+def del_user(user_id):
     """
-    Deletes a State object
+    Deletes a User object
     """
-    res = storage.get(State, state_id)
-    if res is not None:
+    res = storage.get(User, user_id)
+    if res:
         storage.delete(res)
         storage.save()
         return jsonify({}), 200
-    abort(404)
+    return 404
 
 
-@app_views.route('/states', methods=['POST'], strict_slashes=False)
-def post_state():
+@app_views.route('/users', methods=['POST'], strict_slashes=False)
+def post_user():
     """
-    Creates a State
+    Creates a user
     """
     json_data = request.get_json()
     if not json_data:
         return "Not a JSON", 400
     if 'name' not in json_data:
         return "Missing name", 400
-    new = State(**json_data)
+    if 'email' not in json_data:
+        return 'Missing email', 400
+    if 'password' not in json_data:
+        return 'Missing password', 400
+    new = User(**json_data)
     storage.new(new)
     storage.save()
     return jsonify(new.to_dict()), 201
 
 
-@app_views.route('/states/<string:state_id>', methods=['PUT'],
+@app_views.route('/users/<user_id>', methods=['PUT'],
                  strict_slashes=False)
-def put_state(state_id):
+def put_user(user_id):
     """
-    Updates a State object
+    Updates a User object
     """
     json_data = request.get_json()
-    res = storage.get(State, state_id)
+    res = storage.get(User, user_id)
     if not res:
         abort(404)
     if not json_data:
