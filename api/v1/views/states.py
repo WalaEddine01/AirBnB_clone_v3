@@ -17,7 +17,8 @@ def states(state_id=None):
     Retrieves the list of all State objects
     '''
     if not state_id:
-        return jsonify([state.to_dict() for state in storage.all(State).values()])
+        return jsonify([state.to_dict() for state in
+                        storage.all(State).values()])
     res = storage.get(State, state_id)
     if res is not None:
         return jsonify(res.to_dict())
