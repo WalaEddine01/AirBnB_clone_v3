@@ -13,7 +13,6 @@ from models.state import State
 @app_views.route('/amenities/<amenity_id>', methods=['GET'],
                  strict_slashes=False)
 def get_amenity(amenity_id=None):
-    
     if not amenity_id:
         return jsonify([amenity.to_dict() for amenity in
                         storage.all(Amenity).values()])
