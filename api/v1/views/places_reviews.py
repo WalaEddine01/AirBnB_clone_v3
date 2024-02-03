@@ -21,6 +21,19 @@ def get_review(place_id):
         return jsonify(r.to_dict() for r in res.reviews)
     abort(404)
 
+
+@app_views.route('/places/<place_id>', methods=['GET'],
+                 strict_slashes=False)
+def states(place_id):
+    '''
+    Retrieves a Place object
+    '''
+    res = storage.get(City, place_id)
+    if res is not None:
+        return jsonify(res.to_dict())
+    abort(404)
+
+
 @app_views.route('/states/<string:state_id>', methods=['DELETE'],
                  strict_slashes=False)
 def del_states(state_id):

@@ -23,9 +23,9 @@ def get_place(city_id):
     abort(404)
 
 
-@app_views.get_place('/places/<place_id>', methods=['GET'],
+@app_views.route('/places/<place_id>', methods=['GET'],
                  strict_slashes=False)
-def states(place_id):
+def get_place(place_id):
     '''
     Retrieves a Place object
     '''
