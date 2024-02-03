@@ -2,12 +2,11 @@
 """
 amenities view
 """
-from flask import jsonify
 from api.v1.views import app_views
+from flask import abort, jsonify, request
 from models import storage
-from models.state import State
 from models.amenity import Amenity
-from flask import request, abort
+from models.state import State
 
 
 @app_views.route('/amenities', methods=['GET'], strict_slashes=False)

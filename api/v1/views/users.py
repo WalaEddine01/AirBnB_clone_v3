@@ -2,11 +2,10 @@
 """
 Users view
 """
-from flask import jsonify
 from api.v1.views import app_views
+from flask import abort, jsonify, request
 from models import storage
 from models.user import User
-from flask import request, abort
 
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
