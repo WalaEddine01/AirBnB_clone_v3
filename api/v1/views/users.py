@@ -64,7 +64,7 @@ def post_user():
     return jsonify(obj.to_dict()), 201
 
 
-@app_views.route('/users/<user_id>', methods=['PUT'],
+@app_views.route('/users/<string:user_id>', methods=['PUT'],
                  strict_slashes=False)
 def put_user(user_id):
     """
