@@ -43,19 +43,20 @@ def post_user():
     """
     Creates a user
     """
-    json_data = request.get_json()
-    if not json_data:
+    if not request.get_json():
         return "Not a JSON", 400
-    if 'name' not in json_data:
-        return "Missing name", 400
+
+    json_data = request.get_json()
+
     if 'email' not in json_data:
-        return 'Missing email', 400
+        return "Missing email", 400
+
     if 'password' not in json_data:
-        return 'Missing password', 400
-    new = User(**json_data)
-    storage.new(new)
-    storage.save()
-    return jsonify(new.to_dict()), 201
+        return "Missing password", 400
+
+    obj = User(**json_data)
+    obj.save()
+    return jsonify(obj.to_dict()), 201
 
 
 @app_views.route('/users/<user_id>', methods=['PUT'],
