@@ -35,17 +35,17 @@ def get2_review(review_id):
     abort(404)
 
 
-@app_views.route('/states/<string:state_id>', methods=['DELETE'],
+@app_views.route('/reviews/<string:review_id>', methods=['DELETE'],
                  strict_slashes=False)
-def del_review(state_id):
+def del_review(review_id):
     """
-    Deletes a State object
+    Deletes a Reviw object
     """
-    res = storage.get(State, state_id)
+    res = storage.get(Review, review_id)
     if res is not None:
         storage.delete(res)
         storage.save()
-        return jsonify({}), 200
+        return jsonify({})
     abort(404)
 
 
@@ -89,8 +89,7 @@ def update_review_by_id(review_id):
     if not json_data:
         return make_response(jsonify({"error": "Not a JSON"}), 400)
     for k, v in json_data.items():
-        if k not in ['id', 'user_id', 'place_id',
-                     'created_at', 'updated_at']:
+        if k not in ["id", "created_at", "updated_at"]:
             setattr(res, k, v)
     storage.save()
     return jsonify(res.to_dict())
