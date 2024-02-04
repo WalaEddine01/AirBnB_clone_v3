@@ -11,7 +11,7 @@ from models.place import Place
 from models.user import User
 
 
-@app_views.route('/places/<string:place_id>/reviews', methods=['GET'],
+@app_views.route("/places/<string:place_id>/reviews", methods=['GET'],
                  strict_slashes=False)
 def get_review(place_id):
     '''
@@ -58,14 +58,14 @@ def create_review(place_id):
     json_data = request.get_json()
     if not json_data:
         return make_response(jsonify({"error": "Not a JSON"}), 400)
-    if 'name' not in json_data:
-        return make_response(jsonify({"error": "Missing name"}), 400)
     if 'text' not in json_data:
         return make_response(jsonify({"error": "Missing text"}), 400)
     place = storage.get(Place, place_id)
     if place is None:
         abort(404)
     user_id = json_data.get('user_id')
+    if not user_id:
+        return make_response(jsonify({"error": "Missing user_id"}), 400)
     user = storage.get(User, user_id)
     if user is None:
         abort(404)
@@ -89,7 +89,8 @@ def update_review_by_id(review_id):
     if not json_data:
         return make_response(jsonify({"error": "Not a JSON"}), 400)
     for k, v in json_data.items():
-        if k not in ["id", "created_at", "updated_at"]:
+        if k not in ['id', 'user_id', 'place_id',
+                     'created_at', 'updated_at']:
             setattr(res, k, v)
     storage.save()
     return jsonify(res.to_dict())
