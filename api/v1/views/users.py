@@ -77,7 +77,7 @@ def put_user(user_id):
     if not json_data:
         return make_response(jsonify({"error": "Not a JSON"}), 400)
     for k, v in json_data.items():
-        if k not in ["id", "created_at", "updated_at"]:
+        if k not in ["id", "created_at", "updated_at", "email"]:
             setattr(res, k, v)
     storage.save()
     return jsonify(res.to_dict())
