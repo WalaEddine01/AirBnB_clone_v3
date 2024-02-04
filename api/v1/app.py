@@ -30,4 +30,4 @@ def close_session(objs):
 
 if __name__ == "__main__":
     # python -m api.v1.app
-    app.run(host=HOST, port=API, threaded=True, debug=True)
+    app.run(host=HOST, port=API, threaded=True)
