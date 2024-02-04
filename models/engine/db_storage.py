@@ -79,10 +79,11 @@ class DBStorage:
         """
         this method retrieves one object
         """
-        if cls.__name__ in classes:
-            objs = self.__session.query(classes[cls.__name__]).\
-                filter(classes[cls.__name__].id == id).first()
-            return objs
+        if cls in classes.values() and id and type(id) is str:
+            d_obj = self.all(cls)
+            for key, value in d_obj.items():
+                if key.split(".")[1] == id:
+                    return value
         return None
 
     def count(self, cls=None):
