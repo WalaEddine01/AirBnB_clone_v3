@@ -24,7 +24,7 @@ def g_cities(state_id):
 
 @app_views.route('/cities/<string:city_id>', methods=['GET'],
                  strict_slashes=False)
-def g_city(city_id):
+def g1_city(city_id):
     '''
     Retrieves the City object
     '''
@@ -36,7 +36,7 @@ def g_city(city_id):
 
 @app_views.route('/cities/<string:city_id>', methods=['DELETE'],
                  strict_slashes=False)
-def del_City(city_id):
+def del_city(city_id):
     """
     Deletes a City object
     """
