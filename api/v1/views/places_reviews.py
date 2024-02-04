@@ -22,13 +22,13 @@ def get_review(place_id):
     abort(404)
 
 
-@app_views.route('/places/<place_id>', methods=['GET'],
+@app_views.route('/reviews/<review_id>', methods=['GET'],
                  strict_slashes=False)
-def states(place_id):
+def get_review(review_id):
     '''
-    Retrieves a Place object
+    Retrieves a Review object
     '''
-    res = storage.get(City, place_id)
+    res = storage.get(Review, review_id)
     if res is not None:
         return jsonify(res.to_dict())
     abort(404)
