@@ -73,12 +73,12 @@ class FileStorage:
         """
         this method retrieves one object
         """
-        if cls in classes.values() and id and type(id) is str:
-            d_obj = self.all(cls)
-            for key, value in d_obj.items():
-                if key.split(".")[1] == id:
-                    return value
-        return None
+        if cls in classes.values() and id and isinstance(id, str):
+            obj = self.all()
+            for k, v in obj.items():
+                if k.split(".")[1] == id:
+                    return v
+            return None
 
     def count(self, cls=None):
         """
