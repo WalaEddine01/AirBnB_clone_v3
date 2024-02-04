@@ -24,7 +24,7 @@ def get_review(place_id):
 
 @app_views.route('/reviews/<review_id>', methods=['GET'],
                  strict_slashes=False)
-def get_review(review_id):
+def get2_review(review_id):
     '''
     Retrieves a Review object
     '''
@@ -36,7 +36,7 @@ def get_review(review_id):
 
 @app_views.route('/states/<string:state_id>', methods=['DELETE'],
                  strict_slashes=False)
-def del_states(state_id):
+def del_review(state_id):
     """
     Deletes a State object
     """
@@ -49,7 +49,7 @@ def del_states(state_id):
 
 
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
-def post_state():
+def post_review():
     """
     Creates a State
     """
@@ -66,7 +66,7 @@ def post_state():
 
 @app_views.route('/states/<string:state_id>', methods=['PUT'],
                  strict_slashes=False)
-def put_state(state_id):
+def put_review(state_id):
     """
     Updates a State object
     """
