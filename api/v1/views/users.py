@@ -3,7 +3,7 @@
 Users view
 """
 from api.v1.views import app_views
-from flask import abort, jsonify, request
+from flask import abort, jsonify, request, make_response
 from models import storage
 from models.user import User
 
@@ -47,15 +47,15 @@ def post_user():
     Creates a user
     """
     if not request.get_json():
-        return "Not a JSON", 400
+        return make_response(jsonify({"error": "Not a JSON"}), 400)
 
     json_data = request.get_json()
 
     if 'email' not in json_data:
-        return "Missing email", 400
+        return make_response(jsonify({"error": "Missing email"}), 400)
 
     if 'password' not in json_data:
-        return "Missing password", 400
+        return make_response(jsonify({"error": "Missing password"}), 400)
 
     obj = User(**json_data)
     obj.save()
@@ -73,7 +73,7 @@ def put_user(user_id):
     if not res:
         abort(404)
     if not json_data:
-        return 'Not a JSON', 400
+        return make_response(jsonify({"error": "Not a JSON"}), 400)
     for k, v in json_data.items():
         if k not in ["id", "created_at", "updated_at", "email"]:
             setattr(res, k, v)
