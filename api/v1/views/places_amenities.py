@@ -13,7 +13,7 @@ from os import getenv
 
 
 @app_views.route('/places/<place_id>/amenities', methods=['GET'],
-                    strict_slashes=False)
+                 strict_slashes=False)
 def get_amenities(place_id):
     """
     Retrieves the list of all Amenity objects of a Place
@@ -25,7 +25,7 @@ def get_amenities(place_id):
 
 
 @app_views.route('/places/<place_id>/amenities/<amenity_id>', methods=['GET'],
-                    strict_slashes=False)
+                 strict_slashes=False)
 def del_place_amenity(place_id, amenity_id):
     """
     Deletes a Amenity object to a Place
@@ -46,8 +46,8 @@ def del_place_amenity(place_id, amenity_id):
     return jsonify({})
 
 
-@app_views.route('/places/<place_id>/amenities/<amenity_id>', methods=['DELETE'],
-                    strict_slashes=False)
+@app_views.route('/places/<place_id>/amenities/<amenity_id>',
+                 methods=['DELETE'], strict_slashes=False)
 def post_place_amenity(place_id, amenity_id):
     """
     Link a Amenity object to a Place
